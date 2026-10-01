@@ -1,0 +1,131 @@
+PLANTILLA DE GUÍA - SPRING BOOT + DTO + FRAGMENTOS THYMELEAF
+
+Esta plantilla sirve para practicar la estructura vista en clase.
+Cuando llegue el laboratorio real, se debe cambiar solamente lo que pida el enunciado.
+
+1. BASE DE DATOS
+
+Primero ejecuta:
+database/script.sql
+
+El script crea:
+- departments
+- employees
+
+También inserta datos de prueba.
+
+Al final se ejecuta el SELECT que luego se usa en el DTO.
+La idea de la clase es probar primero la consulta SQL antes de llevarla a Spring.
+
+2. ENTITY
+
+Archivo:
+src/main/java/com/example/plantillalab/entity/Employee.java
+
+Employee representa la tabla employees.
+
+3. DTO
+
+Archivo:
+src/main/java/com/example/plantillalab/dto/EmpleadosPorDepartamentoDto.java
+
+El DTO es una interfaz con getters:
+
+getDepartamento()
+getCantidad()
+
+La relación con el SELECT es:
+
+AS departamento  -> getDepartamento()
+AS cantidad      -> getCantidad()
+
+4. REPOSITORY
+
+Archivo:
+src/main/java/com/example/plantillalab/repository/EmployeeRepository.java
+
+El Repository contiene @Query.
+El resultado es:
+
+List<EmpleadosPorDepartamentoDto>
+
+Y se usa:
+nativeQuery = true
+
+5. CONTROLLER
+
+Archivo:
+src/main/java/com/example/plantillalab/controller/EmployeeController.java
+
+La ruta es:
+
+/employees/estadistica
+
+El Controller:
+- llama al Repository
+- manda la lista al HTML mediante Model
+- retorna employee/estadistica
+
+6. FRAGMENTO THYMELEAF
+
+Archivo:
+src/main/resources/templates/fragments/general.html
+
+Se declara:
+
+th:fragment="cabecera(titulo)"
+
+El fragmento recibe el parámetro titulo.
+
+7. VISTA
+
+Archivo:
+src/main/resources/templates/employee/estadistica.html
+
+Se utiliza:
+- th:replace
+- th:each
+- th:text
+
+8. APPLICATION.PROPERTIES
+
+Cambia:
+
+TU_USUARIO
+TU_PASSWORD
+
+por tus datos de SQL Server.
+
+9. FLUJO GENERAL
+
+Navegador
+   |
+   v
+Controller
+   |
+   v
+Repository
+   |
+   v
+SQL + DTO
+   |
+   v
+Model
+   |
+   v
+Thymeleaf
+   |
+   v
+Fragmento + tabla HTML
+
+10. PARA EL LAB REAL
+
+Primero revisar:
+- si entregan o no base de datos
+- qué tablas se necesitan
+- qué consulta SQL pide
+- qué campos debe devolver el DTO
+- qué ruta necesita el Controller
+- qué parte HTML se debe convertir en fragmento
+
+No agregar código que no pida el laboratorio.

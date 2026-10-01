@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadística</title>
+</head>
+<body>
+
+<header th:replace="~{fragments/general :: cabecera(titulo='Empleados por departamento')}"></header>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Departamento</th>
+        <th>Cantidad</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="item : ${listaEmpleadosDepartamento}">
+        <td th:text="${item.getDepartamento()}"></td>
+        <td th:text="${item.getCantidad()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
